@@ -1,32 +1,32 @@
 import React from "react";
+import Section from "./Section";
+import { about } from "../data/portfolio";
 
 const About = () => {
   return (
-    <div
+    <Section
       name="about"
-      className="w-full min-h-screen bg-gradient-to-b from-gray-800 to-black text-white"
+      title="About"
+      className="bg-gradient-to-b from-gray-800 to-black"
     >
-      <div className="max-w-screen-lg p-4 mx-auto flex flex-col justify-center w-full min-h-screen">
-        <div className="pb-8">
-          <p className="text-4xl font-bold inline border-b-4 border-gray-500">
-            About
-          </p>
-        </div>
-
-        <p className="text-xl mt-20">
-          I'm a web developer who is passionate about building modern,
-          responsive websites and applications. My goal is to grow into a
-          strong position in the IT field by doing work I'm proud of.
+      {about.paragraphs.map((text) => (
+        <p key={text} className="text-lg text-gray-300 pb-6">
+          {text}
         </p>
+      ))}
 
-        <br />
-
-        <p className="text-xl">
-          I work well in fast-paced environments and stay focused on getting
-          tasks done quickly and correctly.
-        </p>
+      <div className="grid sm:grid-cols-2 gap-6 pt-4">
+        {about.focus.map(({ title, text }) => (
+          <div
+            key={title}
+            className="p-5 rounded-lg bg-gray-900/60 border border-gray-700"
+          >
+            <h3 className="font-semibold text-cyan-400">{title}</h3>
+            <p className="text-gray-400 pt-2">{text}</p>
+          </div>
+        ))}
       </div>
-    </div>
+    </Section>
   );
 };
 

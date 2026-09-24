@@ -2,84 +2,55 @@ import React from "react";
 import { FaGithub, FaLinkedin } from "react-icons/fa";
 import { HiOutlineMail } from "react-icons/hi";
 import { BsFillPersonLinesFill } from "react-icons/bs";
+import { profile } from "../data/portfolio";
+
+const links = [
+  {
+    label: "LinkedIn",
+    icon: <FaLinkedin size={30} />,
+    href: profile.linkedin,
+    style: "rounded-tr-md",
+  },
+  {
+    label: "GitHub",
+    icon: <FaGithub size={30} />,
+    href: profile.github,
+  },
+  {
+    label: "Mail",
+    icon: <HiOutlineMail size={30} />,
+    href: `mailto:${profile.email}`,
+  },
+  {
+    label: "Resume",
+    icon: <BsFillPersonLinesFill size={30} />,
+    href: profile.resume,
+    style: "rounded-br-md",
+  },
+];
 
 const SocialLinks = () => {
-  const links = [
-    {
-      id: 1,
-      child: (
-        <>
-          Linkedin
-          <FaLinkedin size={30} />
-        </>
-      ),
-      // TODO: replace with your LinkedIn profile URL
-      href: "https://www.linkedin.com",
-      style: "rounded-tr-md",
-    },
-    {
-      id: 2,
-      child: (
-        <>
-          GitHub
-          <FaGithub size={30} />
-        </>
-      ),
-      href: "https://github.com/sachinbhosale07",
-    },
-    {
-      id: 3,
-      child: (
-        <>
-          Mail
-          <HiOutlineMail size={30} />
-        </>
-      ),
-      href: "mailto:bhosalesachin311@gmail.com",
-    },
-    {
-      id: 4,
-      child: (
-        <>
-          Resume
-          <BsFillPersonLinesFill size={30} />
-        </>
-      ),
-      // TODO: add your resume as public/resume.pdf
-      href: `${process.env.PUBLIC_URL}/resume.pdf`,
-      style: "rounded-br-md",
-      download: true,
-    },
-  ];
-
   return (
-    <div
-      className="
-   hidden lg:flex flex-col top-[35%] left-0 fixed"
-    >
+    <div className="hidden lg:flex flex-col top-[35%] left-0 fixed z-20">
       <ul>
-        {links.map(({ id, child, href, style, download }) => {
-          return (
-            <li
-              key={id}
-              className={
-                `flex justify-between items-center w-40 h-14 px-4 ml-[-100px] hover:ml-[-10px] hover:rounded-md duration-300 bg-gray-500 ${
-                  style || ""
-                }`
-              }
+        {links.map(({ label, icon, href, style }) => (
+          <li
+            key={label}
+            className={`flex justify-between items-center w-40 h-14 px-4 ml-[-100px] hover:ml-[-10px] hover:rounded-md duration-300 bg-gray-700 ${
+              style || ""
+            }`}
+          >
+            <a
+              href={href}
+              className="flex justify-between items-center w-full text-white"
+              target="_blank"
+              rel="noreferrer"
             >
-              <a
-                href={href}
-                className="flex justify-between items-center w-full text-white"
-                download={download}
-                target="_blank"
-                rel="noreferrer"
-              >
-                {child}
-              </a>
-            </li>
-          );
-        })}
+              {label}
+              {icon}
+            </a>
+          </li>
+        ))}
       </ul>
     </div>
   );
