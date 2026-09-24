@@ -13,7 +13,8 @@ const SocialLinks = () => {
           <FaLinkedin size={30} />
         </>
       ),
-      href: "http://linkedin.com",
+      // TODO: replace with your LinkedIn profile URL
+      href: "https://www.linkedin.com",
       style: "rounded-tr-md",
     },
     {
@@ -44,7 +45,8 @@ const SocialLinks = () => {
           <BsFillPersonLinesFill size={30} />
         </>
       ),
-      href: "/resume.pdf",
+      // TODO: add your resume as public/resume.pdf
+      href: `${process.env.PUBLIC_URL}/resume.pdf`,
       style: "rounded-br-md",
       download: true,
     },
@@ -61,9 +63,9 @@ const SocialLinks = () => {
             <li
               key={id}
               className={
-                "flex justify-between items-center w-40 h-14 px-4 ml-[-100px] hover:ml-[-10px] hover:rounded-md duration-300 bg-gray-500" +
-                " " +
-                style
+                `flex justify-between items-center w-40 h-14 px-4 ml-[-100px] hover:ml-[-10px] hover:rounded-md duration-300 bg-gray-500 ${
+                  style || ""
+                }`
               }
             >
               <a
