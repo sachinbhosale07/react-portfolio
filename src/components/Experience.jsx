@@ -1,6 +1,7 @@
 import React from "react";
 import { FiExternalLink, FiMapPin, FiCalendar } from "react-icons/fi";
 import Section from "./Section";
+import Reveal from "./Reveal";
 import { experience, durationSince } from "../data/portfolio";
 
 const Experience = () => {
@@ -13,8 +14,17 @@ const Experience = () => {
     >
       <div className="space-y-6">
         {experience.map(
-          ({ company, companyUrl, role, location, start, startDate, end, points }) => (
-            <article key={company} className="card p-6 sm:p-8">
+          ({
+            company,
+            companyUrl,
+            role,
+            location,
+            start,
+            startDate,
+            end,
+            points,
+          }) => (
+            <Reveal as="article" key={company} className="card p-6 sm:p-8">
               <div className="flex flex-col sm:flex-row gap-5 sm:items-start">
                 <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl bg-gradient-to-br from-cyan-500 to-blue-600 text-2xl font-bold text-white">
                   {company[0]}
@@ -45,7 +55,9 @@ const Experience = () => {
                   <div className="flex flex-wrap gap-x-6 gap-y-1 pt-3 text-sm text-slate-400">
                     <span className="inline-flex items-center gap-1.5">
                       <FiCalendar /> {start} – {end}
-                      {startDate && end === "Present" && ` · ${durationSince(startDate)}`}
+                      {startDate &&
+                        end === "Present" &&
+                        ` · ${durationSince(startDate)}`}
                     </span>
                     <span className="inline-flex items-center gap-1.5">
                       <FiMapPin /> {location}
@@ -62,8 +74,8 @@ const Experience = () => {
                   </ul>
                 </div>
               </div>
-            </article>
-          )
+            </Reveal>
+          ),
         )}
       </div>
     </Section>

@@ -1,10 +1,21 @@
 import React from "react";
+import Reveal from "./Reveal";
 
 // Shared wrapper for each page section: scroll target name, spacing and heading.
-const Section = ({ name, eyebrow, title, subtitle, className = "", children }) => (
-  <section name={name} className={`relative w-full py-24 sm:py-28 ${className}`}>
+const Section = ({
+  name,
+  eyebrow,
+  title,
+  subtitle,
+  className = "",
+  children,
+}) => (
+  <section
+    name={name}
+    className={`relative w-full py-24 sm:py-28 ${className}`}
+  >
     <div className="max-w-6xl mx-auto px-4 sm:px-6">
-      <div className="max-w-2xl pb-12">
+      <Reveal className="max-w-2xl pb-12">
         {eyebrow && (
           <p className="text-sm font-semibold uppercase tracking-[0.2em] text-cyan-400">
             {eyebrow}
@@ -14,7 +25,7 @@ const Section = ({ name, eyebrow, title, subtitle, className = "", children }) =
           {title}
         </h2>
         {subtitle && <p className="pt-4 text-lg text-slate-400">{subtitle}</p>}
-      </div>
+      </Reveal>
       {children}
     </div>
   </section>
