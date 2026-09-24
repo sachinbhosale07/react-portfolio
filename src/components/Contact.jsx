@@ -1,77 +1,83 @@
 import React from "react";
-import { FaLinkedin } from "react-icons/fa";
-import { HiOutlineMail } from "react-icons/hi";
+import { FaGithub, FaLinkedin } from "react-icons/fa";
+import { HiOutlineMail, HiOutlineLocationMarker } from "react-icons/hi";
 import Section from "./Section";
 import { profile } from "../data/portfolio";
 
 const inputClass =
-  "p-2 bg-transparent border-2 border-gray-600 rounded-md text-white focus:outline-none focus:border-cyan-500";
+  "w-full rounded-lg border border-white/10 bg-ink-900/60 px-4 py-3 text-white placeholder-slate-500 focus:outline-none focus:border-cyan-400 focus:ring-1 focus:ring-cyan-400";
+
+const channels = [
+  { icon: HiOutlineMail, label: "Email", value: profile.email, href: `mailto:${profile.email}` },
+  { icon: FaLinkedin, label: "LinkedIn", value: "sachin-bhosale04", href: profile.linkedin },
+  { icon: FaGithub, label: "GitHub", value: "sachinbhosale07", href: profile.github },
+  { icon: HiOutlineLocationMarker, label: "Location", value: profile.location },
+];
 
 const Contact = () => {
   return (
     <Section
       name="contact"
-      title="Contact"
-      subtitle="Have a WordPress or SEO project in mind? Send me a message."
-      className="bg-gradient-to-b from-black to-gray-800"
+      eyebrow="Contact"
+      title="Have a WordPress or SEO project in mind?"
+      subtitle="Tell me what you're building or what needs fixing. I'll reply with the most practical next step."
+      className="bg-ink-800/40"
     >
-      <div className="flex flex-col md:flex-row gap-10">
-        <div className="md:w-1/3 space-y-4">
-          <a
-            href={`mailto:${profile.email}`}
-            className="flex items-center gap-3 text-gray-300 hover:text-cyan-400 break-all"
-          >
-            <HiOutlineMail size={24} className="shrink-0" /> {profile.email}
-          </a>
-          <a
-            href={profile.linkedin}
-            target="_blank"
-            rel="noreferrer"
-            className="flex items-center gap-3 text-gray-300 hover:text-cyan-400"
-          >
-            <FaLinkedin size={24} className="shrink-0" /> LinkedIn
-          </a>
-          <p className="text-gray-500">{profile.location}</p>
-        </div>
+      <div className="grid lg:grid-cols-5 gap-8">
+        <ul className="lg:col-span-2 space-y-4">
+          {channels.map(({ icon: Icon, label, value, href }) => {
+            const body = (
+              <>
+                <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-cyan-400/10 text-cyan-300">
+                  <Icon size={20} />
+                </span>
+                <span className="min-w-0">
+                  <span className="block text-sm text-slate-400">{label}</span>
+                  <span className="block truncate font-medium text-white">{value}</span>
+                </span>
+              </>
+            );
+            return (
+              <li key={label}>
+                {href ? (
+                  <a
+                    href={href}
+                    target={href.startsWith("mailto:") ? undefined : "_blank"}
+                    rel="noreferrer"
+                    className="card card-hover flex items-center gap-4 p-4"
+                  >
+                    {body}
+                  </a>
+                ) : (
+                  <div className="card flex items-center gap-4 p-4">{body}</div>
+                )}
+              </li>
+            );
+          })}
+        </ul>
 
         <form
           action="https://getform.io/f/53b06dfa-c85b-4eed-b55c-a76a940adbcf"
           method="POST"
-          className="flex flex-col gap-4 md:w-2/3"
+          className="card lg:col-span-3 p-6 sm:p-8 space-y-4"
         >
-          <input
-            type="text"
-            name="name"
-            required
-            placeholder="Your name"
-            className={inputClass}
-          />
-          <input
-            type="email"
-            name="email"
-            required
-            placeholder="Your email"
-            className={inputClass}
-          />
+          <div className="grid sm:grid-cols-2 gap-4">
+            <input type="text" name="name" required placeholder="Your name" aria-label="Your name" className={inputClass} />
+            <input type="email" name="email" required placeholder="Your email" aria-label="Your email" className={inputClass} />
+          </div>
           <textarea
             name="message"
             required
             placeholder="Your message"
-            rows="8"
+            aria-label="Your message"
+            rows="7"
             className={inputClass}
           ></textarea>
-          <button
-            type="submit"
-            className="text-white bg-gradient-to-b from-cyan-500 to-blue-500 px-6 py-3 w-fit rounded-md hover:scale-105 duration-300"
-          >
-            Let's talk
+          <button type="submit" className="btn-primary">
+            Send message
           </button>
         </form>
       </div>
-
-      <p className="text-center text-sm text-gray-500 pt-20">
-        © {new Date().getFullYear()} {profile.name}
-      </p>
     </Section>
   );
 };

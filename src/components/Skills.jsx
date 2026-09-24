@@ -1,34 +1,43 @@
 import React from "react";
+import { FaWordpress } from "react-icons/fa";
+import { FiCode, FiSearch, FiZap } from "react-icons/fi";
 import Section from "./Section";
 import { skills } from "../data/portfolio";
+
+const icons = [FaWordpress, FiCode, FiSearch, FiZap];
 
 const Skills = () => {
   return (
     <Section
       name="skills"
-      title="Skills"
-      subtitle="Tools and technologies I use every day"
-      className="bg-gradient-to-b from-gray-800 to-black"
+      eyebrow="Skills"
+      title="Tools and technologies"
+      subtitle="What I use every day to build, optimise and maintain websites."
     >
       <div className="grid sm:grid-cols-2 gap-6">
-        {skills.map(({ group, items }) => (
-          <div
-            key={group}
-            className="p-5 rounded-lg bg-gray-900/60 border border-gray-700"
-          >
-            <h3 className="font-semibold text-cyan-400 pb-4">{group}</h3>
-            <div className="flex flex-wrap gap-2">
-              {items.map((item) => (
-                <span
-                  key={item}
-                  className="px-3 py-1 rounded-md bg-gray-800 text-gray-200 text-sm"
-                >
-                  {item}
+        {skills.map(({ group, items }, i) => {
+          const Icon = icons[i % icons.length];
+          return (
+            <div key={group} className="card p-6">
+              <h3 className="flex items-center gap-3 font-semibold text-white">
+                <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-cyan-400/10 text-cyan-300">
+                  <Icon size={20} />
                 </span>
-              ))}
+                {group}
+              </h3>
+              <div className="flex flex-wrap gap-2 pt-5">
+                {items.map((item) => (
+                  <span
+                    key={item}
+                    className="rounded-lg border border-white/10 bg-white/5 px-3 py-1.5 text-sm text-slate-200"
+                  >
+                    {item}
+                  </span>
+                ))}
+              </div>
             </div>
-          </div>
-        ))}
+          );
+        })}
       </div>
     </Section>
   );

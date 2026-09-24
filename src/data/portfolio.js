@@ -54,6 +54,7 @@ export const experience = [
     role: "WordPress Developer & SEO Specialist",
     location: "Nagpur, India",
     start: "Jan 2023",
+    startDate: "2023-01-04",
     end: "Present",
     points: [
       "Develop and maintain websites for Affinco and its publishing brands, including AFFMaven, AFFNinja, AIMojo and AFFDude.",
@@ -104,6 +105,21 @@ export const work = [
     tags: ["Directory", "Affiliate", "SEO"],
   },
 ];
+
+// Time since a YYYY-MM-DD date, e.g. "3 yrs 8 mos".
+export const durationSince = (date) => {
+  const start = new Date(date);
+  const now = new Date();
+  let months =
+    (now.getFullYear() - start.getFullYear()) * 12 +
+    (now.getMonth() - start.getMonth());
+  if (now.getDate() < start.getDate()) months -= 1;
+  const years = Math.floor(months / 12);
+  const rest = months % 12;
+  return [years && `${years} yr${years > 1 ? "s" : ""}`, rest && `${rest} mo${rest > 1 ? "s" : ""}`]
+    .filter(Boolean)
+    .join(" ");
+};
 
 // Personal and side projects. `image` is optional.
 export const projects = [

@@ -1,17 +1,19 @@
 import React from "react";
 
-// Shared wrapper for each page section: scroll target name, background and heading.
-const Section = ({ name, title, subtitle, className = "", children }) => (
-  <section
-    name={name}
-    className={`w-full text-white py-24 ${className}`}
-  >
-    <div className="max-w-screen-lg mx-auto px-4 flex flex-col">
-      <div className="pb-10">
-        <h2 className="text-4xl font-bold inline border-b-4 border-cyan-500">
+// Shared wrapper for each page section: scroll target name, spacing and heading.
+const Section = ({ name, eyebrow, title, subtitle, className = "", children }) => (
+  <section name={name} className={`relative w-full py-24 sm:py-28 ${className}`}>
+    <div className="max-w-6xl mx-auto px-4 sm:px-6">
+      <div className="max-w-2xl pb-12">
+        {eyebrow && (
+          <p className="text-sm font-semibold uppercase tracking-[0.2em] text-cyan-400">
+            {eyebrow}
+          </p>
+        )}
+        <h2 className="text-3xl sm:text-4xl font-bold text-white pt-3">
           {title}
         </h2>
-        {subtitle && <p className="pt-6 text-gray-400">{subtitle}</p>}
+        {subtitle && <p className="pt-4 text-lg text-slate-400">{subtitle}</p>}
       </div>
       {children}
     </div>
@@ -19,7 +21,7 @@ const Section = ({ name, title, subtitle, className = "", children }) => (
 );
 
 export const Tag = ({ children }) => (
-  <span className="text-xs px-2 py-1 rounded-full bg-gray-800 text-cyan-300 border border-gray-700">
+  <span className="text-xs font-medium px-2.5 py-1 rounded-full bg-cyan-400/10 text-cyan-300 ring-1 ring-cyan-400/20">
     {children}
   </span>
 );
