@@ -18,8 +18,9 @@ Every push to `main` builds the app and deploys it to GitHub Pages via
 `.github/workflows/deploy.yml`. In the repository settings, set
 **Pages → Build and deployment → Source** to **GitHub Actions**.
 
-## Customising
+## Updating content
 
-- Project demo/code links: `src/components/Portfolio.jsx`
-- Social links (LinkedIn, GitHub, email): `src/components/SocialLinks.jsx`
-- Resume: add your file as `public/resume.pdf`
+- All text, jobs, work sites, projects and skills: `src/data/portfolio.js`
+- Screenshots: `src/asset/work/` (company sites) and `src/asset/projects/`
+- Resume: edit `resume/resume.html`, then run `node resume/build-pdf.js` to
+  regenerate `public/Sachin-Bhosale-Resume.pdf`
