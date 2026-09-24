@@ -1,46 +1,71 @@
 import React from "react";
+import { FiExternalLink, FiMapPin, FiCalendar } from "react-icons/fi";
 import Section from "./Section";
-import { experience } from "../data/portfolio";
+import { experience, durationSince } from "../data/portfolio";
 
 const Experience = () => {
   return (
     <Section
       name="experience"
-      title="Experience"
-      subtitle="Where I've been working"
-      className="bg-gradient-to-b from-black to-gray-800"
+      eyebrow="Experience"
+      title="Where I've been working"
+      className="bg-ink-800/40"
     >
-      <ol className="border-l-2 border-cyan-500 pl-6 space-y-10">
+      <div className="space-y-6">
         {experience.map(
-          ({ company, companyUrl, role, location, start, end, points }) => (
-            <li key={company} className="relative">
-              <span className="absolute -left-[33px] top-1 w-4 h-4 rounded-full bg-cyan-500" />
-              <div className="flex flex-wrap items-baseline justify-between gap-2">
-                <h3 className="text-2xl font-semibold">
-                  {role}
-                  <span className="text-gray-400"> · </span>
-                  <a
-                    href={companyUrl}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="text-cyan-400 hover:underline"
-                  >
-                    {company}
-                  </a>
-                </h3>
-                <p className="text-sm text-gray-400">
-                  {start} – {end} · {location}
-                </p>
+          ({ company, companyUrl, role, location, start, startDate, end, points }) => (
+            <article key={company} className="card p-6 sm:p-8">
+              <div className="flex flex-col sm:flex-row gap-5 sm:items-start">
+                <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl bg-gradient-to-br from-cyan-500 to-blue-600 text-2xl font-bold text-white">
+                  {company[0]}
+                </div>
+
+                <div className="flex-1">
+                  <div className="flex flex-wrap items-start justify-between gap-3">
+                    <div>
+                      <h3 className="text-xl sm:text-2xl font-bold text-white">
+                        {role}
+                      </h3>
+                      <a
+                        href={companyUrl}
+                        target="_blank"
+                        rel="noreferrer"
+                        className="inline-flex items-center gap-1.5 pt-1 font-semibold text-cyan-400 hover:text-cyan-300"
+                      >
+                        {company} <FiExternalLink size={14} />
+                      </a>
+                    </div>
+                    {end === "Present" && (
+                      <span className="rounded-full bg-emerald-400/10 px-3 py-1 text-sm text-emerald-300 ring-1 ring-emerald-400/20">
+                        Current role
+                      </span>
+                    )}
+                  </div>
+
+                  <div className="flex flex-wrap gap-x-6 gap-y-1 pt-3 text-sm text-slate-400">
+                    <span className="inline-flex items-center gap-1.5">
+                      <FiCalendar /> {start} – {end}
+                      {startDate && end === "Present" && ` · ${durationSince(startDate)}`}
+                    </span>
+                    <span className="inline-flex items-center gap-1.5">
+                      <FiMapPin /> {location}
+                    </span>
+                  </div>
+
+                  <ul className="grid md:grid-cols-2 gap-x-8 gap-y-3 pt-6 text-slate-300">
+                    {points.map((point) => (
+                      <li key={point} className="flex gap-3">
+                        <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-cyan-400" />
+                        {point}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
               </div>
-              <ul className="list-disc pl-5 pt-4 space-y-2 text-gray-300">
-                {points.map((point) => (
-                  <li key={point}>{point}</li>
-                ))}
-              </ul>
-            </li>
+            </article>
           )
         )}
-      </ol>
+      </div>
     </Section>
   );
 };

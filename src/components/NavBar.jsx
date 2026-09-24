@@ -1,73 +1,93 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { FaBars, FaTimes } from "react-icons/fa";
 import { Link } from "react-scroll";
 
+const links = [
+  "home",
+  "about",
+  "experience",
+  "work",
+  "projects",
+  "skills",
+  "contact",
+];
+
 const NavBar = () => {
   const [nav, setNav] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
 
-  const links = [
-    "home",
-    "about",
-    "experience",
-    "work",
-    "projects",
-    "skills",
-    "contact",
-  ];
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 20);
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
 
   return (
-    <div className="flex justify-between items-center w-full h-20 px-4 text-white bg-black fixed z-20">
-      <div>
-        <p className="text-4xl sm:text-5xl font-signature ml-2">Sachin Bhosale</p>
-      </div>
+    <header
+      className={`fixed top-0 inset-x-0 z-30 transition duration-300 ${
+        scrolled || nav
+          ? "bg-ink-900/80 backdrop-blur-md border-b border-white/10"
+          : "bg-transparent"
+      }`}
+    >
+      <nav className="max-w-6xl mx-auto flex justify-between items-center h-20 px-4 sm:px-6">
+        <Link
+          to="home"
+          smooth
+          duration={800}
+          className="text-4xl font-signature text-white cursor-pointer"
+        >
+          Sachin Bhosale
+        </Link>
 
-      <ul className="hidden lg:flex">
-        {links.map((link) => {
-          return (
-            <li
-              key={link}
-              className="px-3 cursor-pointer capitalize font-medium text-gray-500 hover:scale-105 duration-200"
-            >
-              <Link to={link} smooth duration={800} offset={-80}>
+        <ul className="hidden lg:flex items-center gap-1">
+          {links.map((link) => (
+            <li key={link}>
+              <Link
+                to={link}
+                spy
+                smooth
+                duration={800}
+                offset={-80}
+                activeClass="!text-white bg-white/10"
+                className="px-4 py-2 rounded-full cursor-pointer capitalize text-sm font-medium text-slate-400 hover:text-white transition"
+              >
                 {link}
               </Link>
             </li>
-          );
-        })}
-      </ul>
+          ))}
+        </ul>
 
-      <button
-        type="button"
-        onClick={() => setNav(!nav)}
-        aria-label={nav ? "Close menu" : "Open menu"}
-        className="cursor-pointer pr-4 z-10 text-gray-500 lg:hidden"
-      >
-        {nav ? <FaTimes size={30} /> : <FaBars size={30} />}
-      </button>
+        <button
+          type="button"
+          onClick={() => setNav(!nav)}
+          aria-label={nav ? "Close menu" : "Open menu"}
+          className="relative z-10 text-slate-300 lg:hidden"
+        >
+          {nav ? <FaTimes size={26} /> : <FaBars size={26} />}
+        </button>
+      </nav>
 
       {nav && (
-        <ul className="flex flex-col justify-center items-center absolute top-0 left-0 w-full h-screen bg-gradient-to-b from-black to-gray-800 text-gray-500">
-          {links.map((link) => {
-            return (
-              <li
-                key={link}
-                className="px-4 cursor-pointer capitalize py-4 text-3xl"
+        <ul className="lg:hidden flex flex-col items-center gap-2 py-6 border-t border-white/10 bg-ink-900/95">
+          {links.map((link) => (
+            <li key={link}>
+              <Link
+                onClick={() => setNav(false)}
+                to={link}
+                smooth
+                duration={800}
+                offset={-80}
+                className="block px-6 py-3 capitalize text-xl text-slate-300 hover:text-white cursor-pointer"
               >
-                <Link
-                  onClick={() => setNav(!nav)}
-                  to={link}
-                  smooth
-                  duration={800}
-                  offset={-80}
-                >
-                  {link}
-                </Link>
-              </li>
-            );
-          })}
+                {link}
+              </Link>
+            </li>
+          ))}
         </ul>
       )}
-    </div>
+    </header>
   );
 };
 
