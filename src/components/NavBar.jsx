@@ -15,9 +15,14 @@ const links = [
 const NavBar = () => {
   const [nav, setNav] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const [progress, setProgress] = useState(0);
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 20);
+    const onScroll = () => {
+      const max = document.documentElement.scrollHeight - window.innerHeight;
+      setScrolled(window.scrollY > 20);
+      setProgress(max > 0 ? window.scrollY / max : 0);
+    };
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
@@ -68,6 +73,12 @@ const NavBar = () => {
           {nav ? <FaTimes size={26} /> : <FaBars size={26} />}
         </button>
       </nav>
+
+      {/* reading progress */}
+      <div
+        className="absolute bottom-0 left-0 h-px w-full origin-left bg-gradient-to-r from-cyan-400 to-blue-500 transition-transform duration-150 ease-out"
+        style={{ transform: `scaleX(${progress})` }}
+      />
 
       {nav && (
         <ul className="lg:hidden flex flex-col items-center gap-2 py-6 border-t border-white/10 bg-ink-900/95">

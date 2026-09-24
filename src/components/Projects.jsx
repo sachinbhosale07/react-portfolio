@@ -2,6 +2,7 @@ import React from "react";
 import { FaGithub, FaWordpress } from "react-icons/fa";
 import { FiCalendar } from "react-icons/fi";
 import Section, { Tag } from "./Section";
+import Reveal, { stagger } from "./Reveal";
 import { projects } from "../data/portfolio";
 
 // Shown in place of a screenshot for projects that don't have one.
@@ -26,9 +27,11 @@ const Projects = () => {
       className="bg-ink-800/40"
     >
       <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-        {projects.map(({ name, type, image, text, tags, code }) => (
-          <article
+        {projects.map(({ name, type, image, text, tags, code }, i) => (
+          <Reveal
+            as="article"
             key={name}
+            delay={stagger(i % 3)}
             className="group card card-hover flex flex-col overflow-hidden"
           >
             <div className="overflow-hidden border-b border-white/10">
@@ -37,7 +40,7 @@ const Projects = () => {
                   src={image}
                   alt={`${name} screenshot`}
                   loading="lazy"
-                  className="w-full aspect-[16/10] object-cover object-top transition duration-500 group-hover:scale-105"
+                  className="w-full aspect-[16/10] object-cover object-top transition duration-500 group-hover:scale-[1.03]"
                 />
               ) : (
                 <Placeholder name={name} />
@@ -65,7 +68,7 @@ const Projects = () => {
                 </a>
               )}
             </div>
-          </article>
+          </Reveal>
         ))}
       </div>
     </Section>

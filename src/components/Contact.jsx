@@ -2,15 +2,31 @@ import React from "react";
 import { FaGithub, FaLinkedin } from "react-icons/fa";
 import { HiOutlineMail, HiOutlineLocationMarker } from "react-icons/hi";
 import Section from "./Section";
+import Reveal from "./Reveal";
 import { profile } from "../data/portfolio";
 
 const inputClass =
   "w-full rounded-lg border border-white/10 bg-ink-900/60 px-4 py-3 text-white placeholder-slate-500 focus:outline-none focus:border-cyan-400 focus:ring-1 focus:ring-cyan-400";
 
 const channels = [
-  { icon: HiOutlineMail, label: "Email", value: profile.email, href: `mailto:${profile.email}` },
-  { icon: FaLinkedin, label: "LinkedIn", value: "sachin-bhosale04", href: profile.linkedin },
-  { icon: FaGithub, label: "GitHub", value: "sachinbhosale07", href: profile.github },
+  {
+    icon: HiOutlineMail,
+    label: "Email",
+    value: profile.email,
+    href: `mailto:${profile.email}`,
+  },
+  {
+    icon: FaLinkedin,
+    label: "LinkedIn",
+    value: "sachin-bhosale04",
+    href: profile.linkedin,
+  },
+  {
+    icon: FaGithub,
+    label: "GitHub",
+    value: "sachinbhosale07",
+    href: profile.github,
+  },
   { icon: HiOutlineLocationMarker, label: "Location", value: profile.location },
 ];
 
@@ -24,7 +40,7 @@ const Contact = () => {
       className="bg-ink-800/40"
     >
       <div className="grid lg:grid-cols-5 gap-8">
-        <ul className="lg:col-span-2 space-y-4">
+        <Reveal as="ul" className="lg:col-span-2 space-y-4">
           {channels.map(({ icon: Icon, label, value, href }) => {
             const body = (
               <>
@@ -33,7 +49,9 @@ const Contact = () => {
                 </span>
                 <span className="min-w-0">
                   <span className="block text-sm text-slate-400">{label}</span>
-                  <span className="block truncate font-medium text-white">{value}</span>
+                  <span className="block truncate font-medium text-white">
+                    {value}
+                  </span>
                 </span>
               </>
             );
@@ -54,16 +72,32 @@ const Contact = () => {
               </li>
             );
           })}
-        </ul>
+        </Reveal>
 
-        <form
+        <Reveal
+          as="form"
+          delay={120}
           action="https://getform.io/f/53b06dfa-c85b-4eed-b55c-a76a940adbcf"
           method="POST"
           className="card lg:col-span-3 p-6 sm:p-8 space-y-4"
         >
           <div className="grid sm:grid-cols-2 gap-4">
-            <input type="text" name="name" required placeholder="Your name" aria-label="Your name" className={inputClass} />
-            <input type="email" name="email" required placeholder="Your email" aria-label="Your email" className={inputClass} />
+            <input
+              type="text"
+              name="name"
+              required
+              placeholder="Your name"
+              aria-label="Your name"
+              className={inputClass}
+            />
+            <input
+              type="email"
+              name="email"
+              required
+              placeholder="Your email"
+              aria-label="Your email"
+              className={inputClass}
+            />
           </div>
           <textarea
             name="message"
@@ -76,7 +110,7 @@ const Contact = () => {
           <button type="submit" className="btn-primary">
             Send message
           </button>
-        </form>
+        </Reveal>
       </div>
     </Section>
   );

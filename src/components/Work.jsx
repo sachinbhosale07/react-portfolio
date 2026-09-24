@@ -1,6 +1,7 @@
 import React from "react";
 import { FiArrowUpRight } from "react-icons/fi";
 import Section, { Tag } from "./Section";
+import Reveal, { stagger } from "./Reveal";
 import { work } from "../data/portfolio";
 
 const hostname = (url) => new URL(url).hostname.replace(/^www\./, "");
@@ -12,7 +13,9 @@ const Screenshot = ({ image, name, url }) => (
       <span className="h-2.5 w-2.5 rounded-full bg-red-400/70" />
       <span className="h-2.5 w-2.5 rounded-full bg-yellow-400/70" />
       <span className="h-2.5 w-2.5 rounded-full bg-green-400/70" />
-      <span className="ml-3 truncate text-xs text-slate-500">{hostname(url)}</span>
+      <span className="ml-3 truncate text-xs text-slate-500">
+        {hostname(url)}
+      </span>
     </div>
     <div className="overflow-hidden">
       <img
@@ -51,37 +54,40 @@ const Work = () => {
       title="Live websites I've worked on"
       subtitle="Company and brand websites I develop, optimise and maintain at Affinco."
     >
-      <a
-        href={featured.url}
-        target="_blank"
-        rel="noreferrer"
-        className="group card card-hover grid md:grid-cols-5 gap-8 items-center p-5 sm:p-6"
-      >
-        <div className="md:col-span-3">
-          <Screenshot {...featured} />
-        </div>
-        <div className="md:col-span-2">
-          <span className="text-xs font-semibold uppercase tracking-widest text-emerald-300">
-            Company website
-          </span>
-          <div className="pt-2">
-            <Info {...featured} />
+      <Reveal>
+        <a
+          href={featured.url}
+          target="_blank"
+          rel="noreferrer"
+          className="group card card-hover grid md:grid-cols-5 gap-8 items-center p-5 sm:p-6"
+        >
+          <div className="md:col-span-3">
+            <Screenshot {...featured} />
           </div>
-        </div>
-      </a>
+          <div className="md:col-span-2">
+            <span className="text-xs font-semibold uppercase tracking-widest text-emerald-300">
+              Company website
+            </span>
+            <div className="pt-2">
+              <Info {...featured} />
+            </div>
+          </div>
+        </a>
+      </Reveal>
 
       <div className="grid sm:grid-cols-2 gap-6 pt-6">
-        {rest.map((site) => (
-          <a
-            key={site.name}
-            href={site.url}
-            target="_blank"
-            rel="noreferrer"
-            className="group card card-hover p-5 sm:p-6 space-y-5"
-          >
-            <Screenshot {...site} />
-            <Info {...site} />
-          </a>
+        {rest.map((site, i) => (
+          <Reveal key={site.name} delay={stagger(i)}>
+            <a
+              href={site.url}
+              target="_blank"
+              rel="noreferrer"
+              className="group card card-hover block h-full p-5 sm:p-6 space-y-5"
+            >
+              <Screenshot {...site} />
+              <Info {...site} />
+            </a>
+          </Reveal>
         ))}
       </div>
     </Section>
